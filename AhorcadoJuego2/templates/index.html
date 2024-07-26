@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorcado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>¡Bienvenidos al Juego El Ahorcado!</h1>
+        <div class="vidas">
+            <pre>{{ vidas_visual }}</pre>
+        </div>
+        <div class="palabra">
+            <p>Palabra: {{ palabra }}</p>
+        </div>
+        <div class="letras-usadas">
+            <p>Te quedan {{ vidas }} vidas y has usado estas letras: {{ letras_adivinadas }}</p>
+        </div>
+        <div class="mensaje">
+            <p>{{ mensaje }}</p>
+        </div>
+        {% if not juego_terminado %}
+        <form method="POST">
+            <input type="hidden" name="palabra" value="{{ palabra_original }}">
+            <input type="hidden" name="letras_por_adivinar" value="{{ letras_por_adivinar }}">
+            <input type="hidden" name="letras_adivinadas" value="{{ letras_adivinadas }}">
+            <input type="hidden" name="vidas" value="{{ vidas }}">
+            <label for="letra">Escoge una letra:</label>
+            <input type="text" id="letra" name="letra" maxlength="1" required>
+            <button type="submit">Adivinar</button>
+        </form>
+        {% else %}
+        <form method="GET">
+            <button type="submit">Jugar de nuevo</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>
